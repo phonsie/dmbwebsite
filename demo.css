@@ -1,0 +1,162 @@
+body,h1,h2,h3,p,quote,small,form,input,ul,li,ol,label{
+	/* The reset rules */
+	margin:0px;
+	padding:0px;
+}
+
+body{
+	color:#555555;
+	font-size:13px;
+	background: #FFFFCC;
+	font-family:Arial, Helvetica, sans-serif;
+	width: 100%;
+}
+
+h1{
+	font-size:24px;
+	font-weight:bold;
+	font-family:"Trebuchet MS",Arial, Helvetica, sans-serif;
+	letter-spacing:1px;
+}
+
+h2{
+        	font-family:"Trebuchet MS",Arial, Helvetica, sans-serif;
+	font-size:20px;
+	font-weight:normal;
+	letter-spacing:1px;
+	padding-left:-2px;
+	white-space:nowrap;
+}
+
+h3{
+        	font-family:"Trebuchet MS",Arial, Helvetica, sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	letter-spacing:1px;
+	padding-left:-2px;
+	white-space:nowrap;
+}
+
+ul, li{
+	margin-left: 5px;
+	padding-left: 0;
+}
+
+#main p{
+	padding-bottom:8px;
+}
+
+.clear{
+	clear:both;
+}
+
+#main{
+	width:1024px;
+	/* Centering it in the middle of the page */
+	margin:10px auto;
+}
+
+.container{
+	margin-top:20px;
+	
+	background:#FFFFFF;
+	border:1px solid #E0E0E0;
+	padding:15px;
+	
+	/* Rounded corners */
+	-moz-border-radius:20px;
+	-khtml-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius:20px;
+}
+
+.err{
+	color:red;
+}
+
+.success{
+	color:#00CC00;
+}
+
+a, a:visited {
+	color:#0022FF;
+	text-decoration:none;
+	outline:none;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+.tutorial-info{
+	text-align:center;
+	padding:10px;
+}
+
+.have {
+	color:#33AA00;
+}
+
+.donthave {
+	color: #888888;
+}
+
+.hasissue {
+	color: #FF0000;
+} 
+
+.hasissueTD {
+	color: #FFFFFF;
+} 
+
+
+.venue {
+	color: #552255;
+} 
+
+.OneMD5Missing
+{
+	color: #FF0088;
+} 
+
+.normal {
+	color: #FFFFFF;
+} 
+
+.parseerror {
+	color: #880000;
+} 
+
+.MD5 {
+	font-family:"Courier New", Courier, monospace;
+	color: #888888;
+}
+
+.MD5NotMatched {
+	font-family:"Courier New", Courier, monospace;
+	color: #FF0000;
+}
+
+.SelectedArtist {
+	color:#FF00FF;
+}
+
+.UnSelectedArtist {
+	color:#111111;
+}
+
+.SelectedYear {
+	color:#FF00FF;
+}
+
+.UnSelectedYear {
+	color:#111111;
+}	
+.recentShowsTimeOption{	
+	text-align:center
+	font-size: 18px;
+	font-weight: bold;
+	font-family: "Trebuchet MS",Arial, Helvetica, sans-serif;
+	color: #CC0000;
+	letter-spacing: 1px;
+}

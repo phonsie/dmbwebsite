@@ -1,0 +1,21 @@
+[18-Jun-2014 14:12:33] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 24 bytes) in /home/pheveyc/public_html/dmb/lib/db.php on line 439
+[18-Jun-2014 14:12:39] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 24 bytes) in /home/pheveyc/public_html/dmb/lib/db.php on line 439
+[18-Jun-2014 14:12:51] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 24 bytes) in /home/pheveyc/public_html/dmb/lib/db.php on line 439
+[18-Jun-2014 14:13:26] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 24 bytes) in /home/pheveyc/public_html/dmb/lib/db.php on line 439
+[18-Jun-2014 14:14:10] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 24 bytes) in /home/pheveyc/public_html/dmb/lib/db.php on line 439
+[20-Jun-2014 15:51:30] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 15:51:34] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 15:51:36] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 15:52:04] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 15:53:05] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 75 bytes) in /home/pheveyc/public_html/dmb/lib/db.php on line 441
+[20-Jun-2014 15:53:46] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 15:55:44] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 15:55:53] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 15:56:03] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5089467 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 16:04:30] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 5060141 bytes) in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 576
+[20-Jun-2014 20:54:26] PHP Fatal error:  Call to undefined function getRelatedSources() in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 243
+[20-Jun-2014 20:55:06] PHP Fatal error:  Call to undefined function getRelatedSources() in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 244
+[20-Jun-2014 21:12:36] PHP Warning:  Missing argument 2 for getSourceDetails(), called in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 272 and defined in /home/pheveyc/public_html/dmb/lib/functions.php on line 496
+[20-Jun-2014 21:12:36] PHP Notice:  Undefined variable: sourceID in /home/pheveyc/public_html/dmb/lib/functions.php on line 499
+[20-Jun-2014 21:14:26] PHP Warning:  Missing argument 2 for getSourceDetails(), called in /home/pheveyc/public_html/dmb/api/arrest-simple.php on line 272 and defined in /home/pheveyc/public_html/dmb/lib/functions.php on line 496
+[20-Jun-2014 21:14:26] PHP Notice:  Undefined variable: sourceID in /home/pheveyc/public_html/dmb/lib/functions.php on line 499
