@@ -206,7 +206,7 @@
 				}
 				else
 				{
-					$showSourcesDetails .= $dtLink." <a href='http://db.etree.org/shn/$thisSource' target='_blank'><img src='images/etree.jpg' alt='et'></a> <a href ='sourceDetails.php?sourceID=".$thisSource.$showDiff."'><span class='".$class."'>".str_pad($thisSource, 6, "0", STR_PAD_LEFT)."</span></a>";
+					$showSourcesDetails .= $dtLink." <a href='sourceDetails.php?sourceID=".$thisSource.$showDiff."'><span class='".$class."'>".str_pad($thisSource, 6, "0", STR_PAD_LEFT)."</span></a>";
 					$showSourcesDetails .= $thisSourceOutput;
 					$showSourcesDetails .= "<br />\n";
 				}
