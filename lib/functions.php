@@ -120,7 +120,7 @@ function getArtistShortNames($db)
 
 function getBannedSources($db)
 {
-	$db->select('SourceID')
+	$db->select('SourceID,Reason')
 	   ->from(array("bannedsources"))
 	   ->query();
 
@@ -129,7 +129,7 @@ function getBannedSources($db)
 
 	foreach ($data as $bannedSource)
 	{
-		$bannedSources[] = $bannedSource["SourceID"];
+		$bannedSources[$bannedSource["SourceID"]] = $bannedSource;
 	}
  	return($bannedSources);
 }
@@ -777,9 +777,9 @@ function outputDTLink($sourcesOnDT,$bannedSources,$thisSource)
 			$dtLink .= "<a target='_blank' href='http://www.dreamingtree.org/details.php?id=".$sourcesOnDT[$thisSource][0]["DTID"]."'><img height='14' width='14' src='images/freedownload.png' alt='Free'></a>";
 		}
 	}
-	else if (in_array($thisSource,$bannedSources))
+	else if (array_key_exists($thisSource, $bannedSources))
 	{
-		$dtLink .= "<img height='14' width='14' src='images/red_x.jpg' alt='Do not upload' >";
+		$dtLink .= "<img height='14' width='14' src='images/red_x.jpg' alt='Do not upload' title='".$bannedSources[$thisSource]["Reason"]."'>";
 	}
 	else
 	{
