@@ -122,6 +122,7 @@ function getBannedSources($db)
 {
 	$db->select('SourceID,Reason')
 	   ->from(array("bannedsources"))
+     ->order_by("SourceID", "ASC")
 	   ->query();
 
 	$bannedSources = array();
@@ -252,6 +253,16 @@ function getMemberIDFromSecret($db,$secret)
 	//echo $db->get_query();
 
 	return($db->fetch_array());
+}
+
+function getMembers($db)
+{
+  $db->select('usr, dt')
+    ->from('members')
+    ->order_by("usr", "ASC")
+    ->query();
+
+    return($db->fetch_assoc());
 }
 
 function getMemberSecret($db, $memberID)
@@ -779,7 +790,7 @@ function outputDTLink($sourcesOnDT,$bannedSources,$thisSource)
 	}
 	else if (array_key_exists($thisSource, $bannedSources))
 	{
-		$dtLink .= "<img height='14' width='14' src='images/red_x.jpg' alt='Do not upload' title='".$bannedSources[$thisSource]["Reason"]."'>";
+		$dtLink .= "<a href='bannedSources.php'><img height='14' width='14' src='images/red_x.jpg' alt='Do not upload' title='".$bannedSources[$thisSource]["Reason"]."'></a>";
 	}
 	else
 	{
