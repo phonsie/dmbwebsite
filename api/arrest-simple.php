@@ -14,7 +14,7 @@
  * Version 1.1
  * Modified by Phonsie Hevey
  */
-define('INCLUDE_CHECK',true); 
+define('INCLUDE_CHECK',true);
 require('../lib/db.php');
 require('../lib/functions.php');
 
@@ -61,7 +61,7 @@ class ArrestMySQL {
      * @param string $base_uri Optional base URI if not in root folder
      * @access public
      */
-    public function __construct($db_config, $base_uri = '') 
+    public function __construct($db_config, $base_uri = '')
     {
         $this->db = new Database($db_config);
         if(!$this->db->init()) throw new Exception($this->db->get_error());
@@ -69,7 +69,7 @@ class ArrestMySQL {
         $this->segments = $this->get_uri_segments($base_uri);
         $this->table_index = array();
 	}
-    
+
     /**
      * Handle the REST calls and map them to corresponding CRUD
      *
@@ -84,7 +84,7 @@ class ArrestMySQL {
         update > PUT    /table/id
         delete > DELETE /table/id
         */
-        switch ($_SERVER['REQUEST_METHOD']) 
+        switch ($_SERVER['REQUEST_METHOD'])
 		{
             case 'POST':
                 break;
@@ -97,7 +97,7 @@ class ArrestMySQL {
                 break;
         }
     }
-    
+
     /**
      * Add a custom index (usually primary key) for a table
      *
@@ -109,7 +109,7 @@ class ArrestMySQL {
     {
         $this->table_index[$table] = $field;
     }
-    
+
     /**
      * Map the stucture of the MySQL db to an array
      *
@@ -123,23 +123,23 @@ class ArrestMySQL {
         $tables_arr = array();
         $this->db->query('SHOW TABLES FROM '. $database);
         while($table = $this->db->fetch_array())
-		{           	        
+		{
         	if(isset($table['Tables_in_'. $database]))
-			{        		
+			{
         	    $table_name = $table['Tables_in_'. $database];
         	    $tables_arr[$table_name] = array();
             }
         }
-        	
+
         foreach($tables_arr as $table_name=>$val)
 		{
     	    $this->db->query('SHOW COLUMNS FROM '. $table_name);
     	    $fields = $this->db->fetch_all();
     	    $tables_arr[$table_name] = $fields;
-	    }	
+	    }
 	 	return $tables_arr;
 	}
-    
+
     /**
      * Get the URI segments from the URL
      *
@@ -155,17 +155,17 @@ class ArrestMySQL {
             $_SERVER['REQUEST_URI'] = substr($_SERVER['PHP_SELF'], 1);
             if(isset($_SERVER['QUERY_STRING'])) $_SERVER['REQUEST_URI'] .= '?'. $_SERVER['QUERY_STRING'];
         }
-        
+
     	$url = '';
     	$request_url = $_SERVER['REQUEST_URI'];
     	$script_url  = $_SERVER['PHP_SELF'];
     	$request_url = str_replace($base_uri, '', $request_url);
     	if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
         $url = rtrim(preg_replace('/\?.*/', '', $url), '/');
-        
+
         return explode('/', $url);
     }
-    
+
     /**
      * Get a URI segment
      *
@@ -178,160 +178,160 @@ class ArrestMySQL {
         if(isset($this->segments[$index])) return $this->segments[$index];
         return false;
     }
-      
+
     /**
      * Handles a GET and reads from the database
      *
      * @access private
      */
     private function read()
-    {    	
+    {
         $table = $this->segment(0);
 		//$id = intval($this->segment(1));
 		$id = $this->segment(1);
-							
-		switch ($table) 
+
+		switch ($table)
 		{
 			// We don't want to show the member details in public!
-			case "members":													 
+			case "members":
 				$error = array('0' => array(
 					'MemberID' => '0',
-					'Name' => '0'						
-				));				
+					'Name' => '0'
+				));
 				die(json_encode($error));
-				break;	
-		
-			case "dtNotOnEtree":													 
+				break;
+
+			case "dtNotOnEtree":
 				if($result = getDTNotOnEtree($this->db))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'SourceID' => '0',
 						'DTID' => '0',
 						'Free' => '0',
-						'Name' => '0'						
-					));				
+						'Name' => '0'
+					));
 					die(json_encode($error));
 				}
-				break;	
-					
-			case "extraMD5s":				
+				break;
+
+			case "extraMD5s":
 				if($result = getExtraMD5s($this->db))
 				{
 					die(json_encode($result));
-				} 
-				else 
+				}
+				else
 				{
 					$error = array('0' => array(
 						'MD5ID' => '0',
-						'MD5' => '0'						
+						'MD5' => '0'
 					));
 					die(json_encode($error));
-				}			
+				}
 				break;
-			
-			case "extraTrackFileNames":							
+
+			case "extraTrackFileNames":
 				if($result = getExtraTrackFileNames($this->db))
 				{
 					die(json_encode($result));
-				} 
-				else 
+				}
+				else
 				{
 					$error = array('0' => array(
 						'FNID' => '0',
-						'FileName' => '0'						
+						'FileName' => '0'
 					));
 					die(json_encode($error));
-				}			
+				}
 				break;
 
-			case "getRelatedSources":	
+			case "getRelatedSources":
 				if($result = getRelatedSources($this->db,$id))
 				{
 					die(json_encode($result));
-				} 
+				}
 				else
 				{
 					$error = array( '0' => array(
-						'SourceID' => '0'				
+						'SourceID' => '0'
 					));
 					die(json_encode($error));
 				}
-				break;	
-				
-			case "getShowsCountByArtistAndYear":			
+				break;
+
+			case "getShowsCountByArtistAndYear":
 				if($result = getShowsCountByArtistAndYear($this->db))
 				{
 					die(json_encode($result));
-				} 
+				}
 				else
 				{
 					$error = array( '1900' => array(
-						'Count' => '0',	
-						'ArtistID' => '0'				
+						'Count' => '0',
+						'ArtistID' => '0'
 					));
 					die(json_encode($error));
 				}
-				break;	
-				
-			case "getSourceDetails":			
+				break;
+
+			case "getSourceDetails":
 				if($result = getSourceDetails($this->db,$id))
 				{
 					die(json_encode($result));
-				} 
+				}
 				else
 				{
 					$error = array( '0' => array(
-						'TID' => '0',	
-						'Number' => '0',	
-						'TrackName' => '0',	
-						'Length' => '0',	
-						'TNID' => '0',	
-						'FileName' => '0',	
-						'MD5' => '0',	
-						'MD5ID' => '0'				
+						'TID' => '0',
+						'Number' => '0',
+						'TrackName' => '0',
+						'Length' => '0',
+						'TNID' => '0',
+						'FileName' => '0',
+						'MD5' => '0',
+						'MD5ID' => '0'
 					));
 					die(json_encode($error));
 				}
-				break;				
-				
+				break;
+
 			case "lastDT":
 				if($result = getLastDTID($this->db))
 				{
 					die(json_encode($result));
-				} 
+				}
 				else
 				{
 					$error = array('0' => array(
-						'LastDT' => '0'						
+						'LastDT' => '0'
 					));
 					die(json_encode($error));
 				}
-				break;		
-	
-			case "memberIDfromSecret":				
+				break;
+
+			case "memberIDfromSecret":
 				if($result = getMemberIDFromSecret($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array(
-						'MID' => '0'						
+						'MID' => '0'
 					);
 					die(json_encode($error));
 				}
 				break;
-	
-			case "md5exists":				
+
+			case "md5exists":
 				if($result = checkIfMD5Exists($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'MD5ID' => '0',
@@ -340,57 +340,56 @@ class ArrestMySQL {
 					die(json_encode($error));
 				}
 				break;
-		
-			case "MyDTSources":													 
+
+			case "MyDTSources":
 				if($result = getMyDTSources($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'SourceID' => '0',
-						'DTID' => '0'						
-					));				
+						'DTID' => '0'
+					));
 					die(json_encode($error));
 				}
-				break;				
-				
-			case "parseError":								
+				break;
+
+			case "parseError":
 				if($result = getSourcesWhichFailedToParse($this->db))
 				{
 					die(json_encode($result));
-				} 
-				else 
+				}
+				else
 				{
 					$error = array('0' => array(
-						'SourceID' => '0'						
+						'SourceID' => '0'
 					));
 					die(json_encode($error));
-				}			
+				}
 				break;
-								
-			case "sourcesMissingTapers":							
+
+			case "sourcesMissingTapers":
 				if($result = getSourcesWithNoTapers($this->db))
 				{
 					die(json_encode($result));
-				} 
-				else 
+				}
+				else
 				{
 					$error = array('0' => array(
-						'SourceID' => '0'						
+						'SourceID' => '0'
 					));
 					die(json_encode($error));
-				}			
+				}
 				break;
-						
+
 			case "trackfilenameexists":
-				$id = urldecode($id);
 				if($result = checkIfTrackFileNameExists($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'FNID' => '0',
@@ -405,35 +404,35 @@ class ArrestMySQL {
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
-						'TID' => '0',						
+						'TID' => '0',
 					));
 					die(json_encode($error));
 				}
 				break;
-				
+
 			case "trackIDsFromNameID":
 				if($result = getTrackIDsFromNameID($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
-						'TID' => '0',						
+						'TID' => '0',
 					));
 					die(json_encode($error));
 				}
-				break;	
-							
+				break;
+
 			case "trackIDsFromShowSourceID":
 				if($result = getTrackIDsFromShowSourceID($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'TID' => '0',
@@ -443,17 +442,17 @@ class ArrestMySQL {
 						'NameID' => '0',
 						'MD5ID' => '0',
 						'Length' => "00:00:00"
-					));				
+					));
 					die(json_encode($error));
 				}
-				break;	
-			
+				break;
+
 			case "tracknameexists":
 				if($result = checkIfTrackNameExists($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'TNID' => '0',
@@ -462,18 +461,18 @@ class ArrestMySQL {
 					die(json_encode($error));
 				}
 				break;
-			
+
 			case "SourceInfoByShowSourceID":
 				$this->db->select('*')
 						 ->from("sourceinfo")
 						 ->where('ShowSourceID', $id)
 						 ->query();
-				
+
 				if($result = $this->db->fetch_all())
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'SIID' => '0',
@@ -483,28 +482,28 @@ class ArrestMySQL {
 					));
 					die(json_encode($error));
 				}
-				break;					
-	
+				break;
+
 			case "ShowIDbyEtreeID":
 				$id = urldecode($id);
 				$this->db->select('SID')
 						 ->from("shows")
 						 ->where('EtreeID', $id)
 						 ->query();
-				
+
 				if($result = $this->db->fetch_all())
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
-						'SID' => '0',						
+						'SID' => '0',
 					));
 					die(json_encode($error));
 				}
-				break;	
-	
+				break;
+
 			case "SSIDbySourceID":
 				$id = urldecode($id);
 				$this->db->select('*')
@@ -515,7 +514,7 @@ class ArrestMySQL {
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'SSID' => '0',
@@ -524,66 +523,66 @@ class ArrestMySQL {
 					));
 					die(json_encode($error));
 				}
-				break;					
-				
+				break;
+
 			case "taperByName":
 				$id = urldecode($id);
 				if($result = getTaperByName($this->db,$id))
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
 						'TPID' => '-1',
-						'Name' => '-',						
+						'Name' => '-',
 					));
 					die(json_encode($error));
 				}
-				break;				
-			
+				break;
+
 			case "sourceIDsFromMD5":
 				$id = urldecode($id);
 				$this->db->select('SourceID')
 						 ->from(array("md5s", "showsources", "tracks" ))
 						 ->whereASIS("WHERE tracks.`MD5ID` = md5s.`MD5ID` AND tracks.`ShowSourceID` =  showsources.`SSID` AND md5s.`MD5` = '".$id."'")
 						 ->query();
-				
+
 				if($result = $this->db->fetch_all())
 				{
 					die(json_encode($result));
 				}
-				else 
+				else
 				{
 					$error = array('0' => array(
-						'SourceID' => '0',						
-					));
-					die(json_encode($error));
-				}
-				break;	
-			
-			case "mytracksbymemberid":
-				$this->db->select('MD5')
-					 ->from(array("md5s", "mytracks" ))
-					 ->whereASIS("WHERE mytracks.`MD5ID` = md5s.`MD5ID` AND mytracks.`MID` = ".intval($this->_get('mid')))
-					 ->limit(intval($this->_get('limit')), intval($this->_get('offset')))							 
-					 ->query();		
-				
-				if($result = $this->db->fetch_all())
-				{
-					die(json_encode($result));
-				}
-				else 
-				{
-					$error = array('0' => array(
-						'MD5' => '0',						
+						'SourceID' => '0',
 					));
 					die(json_encode($error));
 				}
 				break;
-		
+
+			case "mytracksbymemberid":
+				$this->db->select('MD5')
+					 ->from(array("md5s", "mytracks" ))
+					 ->whereASIS("WHERE mytracks.`MD5ID` = md5s.`MD5ID` AND mytracks.`MID` = ".intval($this->_get('mid')))
+					 ->limit(intval($this->_get('limit')), intval($this->_get('offset')))
+					 ->query();
+
+				if($result = $this->db->fetch_all())
+				{
+					die(json_encode($result));
+				}
+				else
+				{
+					$error = array('0' => array(
+						'MD5' => '0',
+					));
+					die(json_encode($error));
+				}
+				break;
+
 			default:
-					
+
 				if(!$table || !isset($this->db_structure[$table]))
 				{
 					$error = array('result' => array(
@@ -595,7 +594,7 @@ class ArrestMySQL {
 				}
 
 				//if($id && is_int($id)) {
-				if($id) 
+				if($id)
 				{
 					$index = 'id';
 					if(isset($this->table_index[$table])) $index = $this->table_index[$table];
@@ -603,32 +602,8 @@ class ArrestMySQL {
 							 ->from($table)
 							 ->where($index, $id)
 							 ->query();
-					//if($result = $this->db->fetch_array()){						
-					
-					if($result = $this->db->fetch_all())
-					{
-						die(json_encode($result));
-					}
-					else 
-					{
-						$error = array('result' => array(
-							'message' => 'No Content',
-							'code' => 204,
-							'id' => 0
-						));
-						die(json_encode($error));
-					}				
-				} 
-				else 
-				{
-					$this->db->select('*')
-							 ->from($table)
-							 //->order_by_old($this->_get('order_by'), $this->_get('order'))
-							 ->limit(intval($this->_get('limit')), intval($this->_get('offset')))
-							 ->query();
+					//if($result = $this->db->fetch_array()){
 
-					//echo $this->db->get_query();
-					
 					if($result = $this->db->fetch_all())
 					{
 						die(json_encode($result));
@@ -643,9 +618,33 @@ class ArrestMySQL {
 						die(json_encode($error));
 					}
 				}
-		}		
+				else
+				{
+					$this->db->select('*')
+							 ->from($table)
+							 //->order_by_old($this->_get('order_by'), $this->_get('order'))
+							 ->limit(intval($this->_get('limit')), intval($this->_get('offset')))
+							 ->query();
+
+					//echo $this->db->get_query();
+
+					if($result = $this->db->fetch_all())
+					{
+						die(json_encode($result));
+					}
+					else
+					{
+						$error = array('result' => array(
+							'message' => 'No Content',
+							'code' => 204,
+							'id' => 0
+						));
+						die(json_encode($error));
+					}
+				}
+		}
     }
-    
+
     /**
      * Helper function to retrieve $_GET variables
      *
@@ -659,12 +658,12 @@ class ArrestMySQL {
         if($index)
 		{
             if(isset($_GET[$index]) && $_GET[$index]) return strip_tags($_GET[$index]);
-        } 
-		else 
+        }
+		else
 		{
             if(isset($_GET) && !empty($_GET)) return $_GET;
         }
         return false;
-    }    
+    }
 }
 ?>

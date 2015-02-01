@@ -76,10 +76,12 @@ function checkIfTrackFileNameExists($db,$id)
 {
 	$db->select('*')
 		->from("trackfilenames")
-		->where('FileName', $id)
-		->query();
+    ->whereASIS(" WHERE `FileName` = '".$id."'")
+    ->query();
 
-	return($db->fetch_all());
+  //echo $db->get_query();
+
+  return($db->fetch_all());
 }
 
 function checkIfTrackNameExists($db,$id)
