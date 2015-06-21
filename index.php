@@ -27,15 +27,15 @@
 		<li>Register on this site if you haven't already done so.</li>
 		<li>Install the program, as explained in the <a href="how-to.php">How-To</a>.</li>
 		<li>Scan your (external) hard drive where the shows are stored.</li>
-		<li>Upload the log file which the program creates <a href="inport.php">here</a>.
+		<li>Upload the log file which the program creates <a href="inport.php">here</a>.</li>
 	</ul>
 	</p><p>
-	After about 5 minutes your sources will show up as green when you click on <a href="shows.php?artistID=6&year=2014">Shows</a> in the menu above.
+	After about 5 minutes your sources will show up as green when you click on <a href="shows.php?artistID=6&year=<?php echo getCurrentYear(); ?>">Shows</a> in the menu above.
 	You can also use the <a href="overview.php">Overview</a> to see how many shows you have imported here for a given year. 
 	</p><p>
 	<h2>2. Are you looking for a particular show or source?</h2>
 	<p>
-	Click on <a href="shows.php?artistID=6&year=2014">Shows</a> in the menu above and in the sub menus choose the artist and year of 
+	Click on <a href="shows.php?artistID=6&year=<?php echo getCurrentYear(); ?>">Shows</a> in the menu above and in the sub menus choose the artist and year of 
 	the show you're looking for. If it's available on <a href="http://www.dreamingtree.org">dreamingtree.org</a> you will see a familiar download 
 	image in front of the given <a href="http://db.etree.org">etree</a> shnid.	
 	</p>

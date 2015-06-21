@@ -137,6 +137,11 @@ function getBannedSources($db)
  	return($bannedSources);
 }
 
+function getCurrentYear()
+{
+    return (2015);
+}
+
 function getDTLinks($db)
 {
 	// Get the details for all sources on DT
@@ -765,7 +770,7 @@ function outputArtists($artistIDs)
 	$selectedArtistID = isset($_GET["artistID"]) ? $_GET["artistID"] : "";
 	$AllArtistClass = isset($_GET["artistID"]) ? "UnSelectedArtist" : "SelectedArtist";
 
-	$Year = isset($_GET["year"]) ? $_GET["year"] : "2014";
+	$Year = isset($_GET["year"]) ? $_GET["year"] : getCurrentYear();
 
 	$artistOutput = "<center><b><a href ='shows.php?year=".$Year."'><span class='".$AllArtistClass."'>All</span></a> | ";
 	foreach ($artistIDs as $oneArtistID => $artistName)
@@ -887,7 +892,7 @@ function setHeader($pageTitle)
 			Hello <?php echo isset($_SESSION['usr']) ? $_SESSION['usr'].", <a href='index.php?logoff'>Log off </a>" : 'Guest | <a href="login.php">Log in</a> | <a href="register.php">Register</a> ';?>
 			| <a href="index.php">Home</a>
 			| <a href="overview.php">Overview</a>
-			| <a href="shows.php?artistID=6&year=2014">Shows</a>
+			| <a href="shows.php?artistID=6&year=2015">Shows</a>
 			| <a href="md5Missing.php">Missing MD5s</a>
 			<?php if(isset($_SESSION['usr'])) { echo "| <a href='import.php'>Import</a> ";} ?>
 			<?php if(isset($_SESSION['usr'])) { echo "| <a href='errors.php'>My Shows With Errors</a> ";} ?>
