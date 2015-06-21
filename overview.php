@@ -10,7 +10,14 @@
 
 	setHeader("Overview");
 	
-	$memberID = isset($_SESSION['id']) ? $_SESSION['id'] : 0;
+    if(isset($_GET["mid"])) 
+    { 
+        $memberID = $_GET["mid"];
+    }
+    else
+    {
+        $memberID = isset($_SESSION['id']) ? $_SESSION['id'] : 0;
+    }
 	
 	$db = new Database($db_config);
 	if(!$db->init()) throw new Exception($db->get_error());
