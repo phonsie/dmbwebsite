@@ -69,7 +69,7 @@
 			$_SESSION['msg']['login-err'] = implode('<br />',$err);
 			// Save the error messages in the session
 		
-			header("Location: shows.php?artistID=6&year=2015");
+			header("Location: shows.php?artistID=6&year=2017");
 			exit;
 		}	
 	}  
